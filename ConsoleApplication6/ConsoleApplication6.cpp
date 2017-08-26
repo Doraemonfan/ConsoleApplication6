@@ -50,6 +50,13 @@ void startup() {
 	BeginBatchDraw();
 }
 
+void delay(DWORD ms) {
+	static DWORD oldtime = GetTickCount();
+	while (GetTickCount() - oldtime < ms)
+		Sleep(1);
+	oldtime = GetTickCount();
+}
+
 void show() {
 	clearrectangle(0, 0, WIDTH, HIGH);
 
@@ -60,7 +67,7 @@ void show() {
 	 }
 
 	FlushBatchDraw();
-	Sleep(2);
+	delay(2);
 }
 
 void updateWithoutInput() {
@@ -143,6 +150,7 @@ void updateWithInput() {
 		else if (m.uMsg == WM_RBUTTONUP) {isMouseDownR = false; }
 	}
 }
+
 
 
 void gameover() {
